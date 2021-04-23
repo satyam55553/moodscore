@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.shapes.Shape;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ import com.example.reminder.data.Contract;
 import com.example.reminder.data.mCursorAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     mCursorAdapter mCursorAdapter;
     int score = 100;
-    TextView moodScore, setReminderDialog, alarmDateTime, viewHistory;
+    TextView moodScore, setReminderDialog, alarmDateTime, viewHistory,tipsText;
     Button sadBtn, greatBtn, setReminder, cancelBtn,decentBtn;
     TimePicker timePicker;
     AlarmManager alarmManager;
@@ -72,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int SCORE_LOADER = 1, MOOD_SCORE_LOADER = 3;
     private static final String CHANNEL_ID = "CHANNEL_SAMPLE";
     ProgressBar mProgress;
-
     int pStatus = 0;
     private final Handler handler = new Handler();
 
@@ -84,10 +85,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         createNotificationChannel();
 
         moodScore = (TextView) findViewById(R.id.mood_score);
+        tipsText = (TextView) findViewById(R.id.tipsText);
         sadBtn = (Button) findViewById(R.id.sad_button);
         decentBtn = (Button) findViewById(R.id.decent_button);
         greatBtn = (Button) findViewById(R.id.great_button);
         viewHistory = findViewById(R.id.viewHistory);
+
+        sadBtn.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+        decentBtn.getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.MULTIPLY);
+        greatBtn.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
 
         setReminderDialog = (TextView) findViewById(R.id.setReminderDialog);
 
@@ -335,6 +341,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             moodScoreAvg = moodScoreCal(cursor);
             mProgress.setProgress(moodScoreAvg);   // Main Progress
             moodScore.setText(moodScoreAvg+"");
+            tipsSelector(moodScoreAvg);
             //moodColor(moodScoreAvg);
             Log.e("MainActivity.this", "mood score avg=" + moodScoreAvg);
         }
@@ -390,6 +397,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             moodScore.setTextColor(Color.RED);
         }
     }*/
+
+    private void tipsSelector(int score){
+        if(score>85){
+            tipsText.setText("Do you know? \n" +
+                    "Your body requires about 3 litres of water per day \n " +
+                    "So stay hydrated!!");
+        }else if(score<=85 && score>75){
+            tipsText.setText("The younger you are more sleep you require!! \n" +
+                    "Adults require atleast 7 hours of sleep \n" +
+                    "So lets sleep!!!");
+        }else if(score<=75 && score>50){
+            tipsText.setText("Focus on eating plenty of fruits and vegetables along with foods rich in omega-3 fatty acids");
+        }else if(score<=50){
+            tipsText.setText("Hey you seem Sad? \n" +
+                    "Cheer up!! \n");
+        }
+    }
 
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

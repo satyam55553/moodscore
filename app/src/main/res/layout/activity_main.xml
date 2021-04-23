@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -59,8 +60,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_button"
                 android:text="Great"
-                android:textColor="#00ff00" />
+                android:textColor="@color/colorPrimaryDark" />
 
             <Button
                 android:id="@+id/decent_button"
@@ -69,8 +71,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_button"
                 android:scaleType="centerInside"
-                android:text="Decent" />
+                android:text="Decent"
+                android:textColor="@color/colorPrimary" />
 
             <Button
                 android:id="@+id/sad_button"
@@ -79,8 +83,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
+                android:background="@drawable/rounded_button"
                 android:text="Sad"
-                android:textColor="#ff0000" />
+                android:textColor="@color/colorPrimaryDark" />
         </LinearLayout>
 
         <TextView
@@ -91,20 +96,30 @@
             android:gravity="center"
             tools:text="No Reminder Yet" />
 
-        <ScrollView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="18dp">
+            android:layout_margin="16dp"
+            android:visibility="visible"
+            app:cardBackgroundColor="#EC3170"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="16dp"
+            app:contentPadding="8dp">
 
             <TextView
                 android:id="@+id/tipsText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:fontFamily="monospace"
                 android:gravity="center"
-                android:textSize="20sp"
-                android:textStyle="italic"
-                tools:text="An apple a day keeps the doctor away" />
-        </ScrollView>
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"
+                android:text="An apple a day keeps the doctor away"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
     <LinearLayout
