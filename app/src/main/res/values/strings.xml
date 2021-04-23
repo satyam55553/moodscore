@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MoodScore</string>
+    <string name="hows_mood">How is your Mood today?</string>
+</resources>
